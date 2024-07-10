@@ -4,3 +4,4 @@ numpy
 sklearn
 dotenv
 psycopg2
+flask
