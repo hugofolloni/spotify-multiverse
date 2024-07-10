@@ -20,11 +20,14 @@ class Similarity:
         self.track_id = track_id
         self.cosine = cosine
 
-def get_playlist_info(playlist_url):
+def connect_to_spotify():
     client_id = os.getenv("SPOTIFY_CLIENT")
     client_secret = os.getenv("SPOTIFY_SECRET")
 
-    sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=client_id, client_secret=client_secret))
+    return spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=client_id, client_secret=client_secret))
+
+def get_playlist_info(playlist_url):
+    sp = connect_to_spotify()
 
     playlist_ids = []
     playlist_songs = []
@@ -46,7 +49,7 @@ def get_playlist_info(playlist_url):
         except: 
             pass
 
-    return playlist_infos, tuple(playlist_ids)
+    return playlist_infos, tuple(playlist_ids), playlist_songs
 
 def create_dataframe(array):
     return pd.DataFrame(array)
@@ -73,5 +76,7 @@ def find_similarity(user, database, amount: int):
 
     return comparitions[:amount]
 
-
-
+def find_infos_about_songs(ids):
+    sp = connect_to_spotify()
+    return sp.tracks(ids)
+    

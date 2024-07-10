@@ -9,7 +9,8 @@ class TrackInfo:
         self.id = id
         self.attributes = attributes
 
-def add_songs(playlist):
+
+def add_songs(infos, songs):
     conn = psycopg2.connect(
         database = os.getenv("DB_DATABASE"),
         host = os.getenv("DB_HOST"),
@@ -18,25 +19,20 @@ def add_songs(playlist):
         port = os.getenv("DB_PORT")
     )
     cursor = conn.cursor()
-
-    songs, infos = get_playlist_info(playlist)
-    print("Foram obtidas as informações da playlist.")
-
+    
     for index, item in enumerate(infos):
         try:
             cursor.execute("INSERT INTO tracks(track_id, danceability, energy, loudness, speechiness, acousticness, instrumentalness, liveness, valence, tempo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (songs[index].id, item[0], item[1], item[2], item[3], item[4], item[5], item[6], item[7], item[8]))
             conn.commit()
-            print("Adicionado", songs[index].name)
         except Exception as error:
-            print("Já exisitia", songs[index].name)
             conn.rollback()
   
     cursor.close()
     conn.close()
 
-    return print("Itens adicionados com sucesso.")
+    return print("Essa playlist foi adicionada ao banco de dados.")
 
-def retrieve_songs(filters = "", quantity = ""):
+def retrieve_songs(filters = "", quantity = "", fake=False):
     conn = psycopg2.connect(
         database = os.getenv("DB_DATABASE"),
         host = os.getenv("DB_HOST"),
@@ -52,6 +48,9 @@ def retrieve_songs(filters = "", quantity = ""):
     cursor.close()
     conn.close()
 
+    if fake:
+       return data 
+    
     return preprocess_data(data)
 
 def preprocess_data(data):
@@ -64,18 +63,5 @@ def preprocess_data(data):
         output.append(TrackInfo(item[1], attr))
 
     return output
-
-def fake_user(data):
-    infos = []
-    ids = []
-
-    for item in data:
-        attr = []
-        for index in range(2, 11):
-            attr.append(float(item[index]))
-        infos.append(attr)
-        ids.append(item[1])
-
-    return infos, tuple(ids)
 
 
