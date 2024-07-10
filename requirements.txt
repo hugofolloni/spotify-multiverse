@@ -1,0 +1,6 @@
+spotipy
+pandas 
+numpy
+sklearn
+dotenv
+psycopg2
