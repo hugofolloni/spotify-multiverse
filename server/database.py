@@ -1,5 +1,4 @@
 import psycopg2
-from analysis import get_playlist_info
 import os
 from dotenv import load_dotenv
 load_dotenv()

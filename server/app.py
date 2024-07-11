@@ -25,10 +25,13 @@ def get_songs():
     amount = int(amount)
 
     try:
+        infos, data = find_songs(playlist, amount)
         data = [obj.__dict__ for obj in find_songs(playlist, amount)]
-        return json.dumps({"code": 0, "tracks": data})
-    except:
-        return json.dumps({"error": "Couldn't process your request", "code": 1})
+        return json.dumps({"code": 0, "infos": {"name": infos.name, "cover": infos.cover}, "tracks": [obj.__dict__ for obj in data]})
+    except Exception as error:
+        if str(error).find("at least") != -1:
+            return json.dumps({"error": "The server is down due high number of requests", "code": 1})
+        return json.dumps({"error": "Couldn't process your request", "code": 1, "exception": str(error)})
 
 ## To use when the Spotify API is unavailable.
 @app.route("/fake", methods=['GET'])
@@ -46,3 +49,5 @@ def get_size():
     
     return {"size": get_database_size()}
 
+if __name__ == '__main__':
+    app.run(debug=True)

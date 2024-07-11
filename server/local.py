@@ -17,10 +17,12 @@ def add_songs_by_playlist(playlist):
     )
     cursor = conn.cursor()
 
-    infos, _, songs = get_playlist_info(playlist)
+    data = get_playlist_info(playlist)
+    analysis = data.analysis
+    songs = data.songs
     print("Foram obtidas as informações da playlist.")
 
-    for index, item in enumerate(infos):
+    for index, item in enumerate(analysis):
         try:
             cursor.execute("INSERT INTO tracks(track_id, danceability, energy, loudness, speechiness, acousticness, instrumentalness, liveness, valence, tempo) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)", (songs[index].id, item[0], item[1], item[2], item[3], item[4], item[5], item[6], item[7], item[8]))
             conn.commit()
@@ -43,17 +45,17 @@ def iterate_list(playlists):
 
 def fake_user(filters = "", quantity = ""):
     data = retrieve_songs(filters, quantity, fake=True)
-    infos = []
+    analysis = []
     ids = []
 
     for item in data:
         attr = []
         for index in range(2, 11):
             attr.append(float(item[index]))
-        infos.append(attr)
+        analysis.append(attr)
         ids.append(item[1])
 
-    return infos, tuple(ids)
+    return analysis, tuple(ids)
 
 def find_fake(amount, offset, limit):
     user_infos, user_ids = fake_user(quantity=f"OFFSET {offset} LIMIT {limit}")

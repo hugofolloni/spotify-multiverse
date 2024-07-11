@@ -17,8 +17,8 @@ const Home = () => {
 
     const texts = {
         title: {
-            en: ["Another playlist", "Another you"],
-            pt: ["Outra playlist", "Outro você"]
+            en: ["Another songs", "Another you"],
+            pt: ["Outras músicas", "Outro você"]
         },
         subtitle: {
             en: [

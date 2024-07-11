@@ -9,6 +9,17 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+class PlaylistInfos:
+    def __init__(self, name, cover):
+        self.name = name
+        self.cover = cover
+class Playlist:
+    def __init__(self, name, cover, analysis, ids, songs):
+        self.infos = PlaylistInfos(name, cover)
+        self.analysis = analysis
+        self.ids = ids
+        self.songs = songs
+
 class Track:
     def __init__(self, name, artists, id):
         self.id = id
@@ -31,10 +42,13 @@ def get_playlist_info(playlist_url):
 
     playlist_ids = []
     playlist_songs = []
-    playlist_infos = []
-    data = sp.playlist_items(playlist_url, limit=100)
+    playlist_analysis = []
+    data = sp.playlist(playlist_url)
 
-    for item in data['items']:
+    name = data['name']
+    cover = data['images'][0]['url']
+
+    for item in data['tracks']['items']:
         try:
             item_id = item['track']['id']
             playlist_ids.append(item_id)
@@ -45,11 +59,11 @@ def get_playlist_info(playlist_url):
             playlist_songs.append(Track(item_name, item_artists, item_id))
             item_features = sp.audio_features(item_id)[0]
             item_infos = [item_features['danceability'], item_features['energy'], item_features['loudness'] / -10, item_features['speechiness'], item_features['acousticness'], item_features['instrumentalness'], item_features['liveness'], item_features['valence'], item_features['tempo'] / 180]
-            playlist_infos.append(item_infos)
+            playlist_analysis.append(item_infos)
         except: 
             pass
 
-    return playlist_infos, tuple(playlist_ids), playlist_songs
+    return Playlist(name, cover, playlist_analysis, tuple(playlist_ids), playlist_songs)
 
 def create_dataframe(array):
     return pd.DataFrame(array)
@@ -86,4 +100,3 @@ def find_infos_about_songs(ids):
         return sp.tracks(ids[:50])['tracks'] + sp.tracks(ids[50:100])['tracks']
 
     return sp.tracks(ids)['tracks']
-    
