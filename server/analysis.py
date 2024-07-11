@@ -78,5 +78,12 @@ def find_similarity(user, database, amount: int):
 
 def find_infos_about_songs(ids):
     sp = connect_to_spotify()
-    return sp.tracks(ids)
+
+    if len(ids) > 50:
+        return sp.tracks(ids[:50])['tracks'] + sp.tracks(ids[50:])['tracks']
+    
+    if len(ids) > 100:
+        return sp.tracks(ids[:50])['tracks'] + sp.tracks(ids[50:100])['tracks']
+
+    return sp.tracks(ids)['tracks']
     
