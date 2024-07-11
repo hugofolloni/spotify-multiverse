@@ -9,7 +9,6 @@ class TrackInfo:
         self.id = id
         self.attributes = attributes
 
-
 def add_songs(infos, songs):
     conn = psycopg2.connect(
         database = os.getenv("DB_DATABASE"),
@@ -29,8 +28,6 @@ def add_songs(infos, songs):
   
     cursor.close()
     conn.close()
-
-    return print("Essa playlist foi adicionada ao banco de dados.")
 
 def retrieve_songs(filters = "", quantity = "", fake=False):
     conn = psycopg2.connect(
@@ -53,6 +50,24 @@ def retrieve_songs(filters = "", quantity = "", fake=False):
     
     return preprocess_data(data)
 
+def get_database_size():
+    conn = psycopg2.connect(
+        database = os.getenv("DB_DATABASE"),
+        host = os.getenv("DB_HOST"),
+        user = os.getenv("DB_USER"),
+        password = os.getenv("DB_PASSWORD"),
+        port = os.getenv("DB_PORT")
+    )
+    cursor = conn.cursor()
+
+    cursor.execute(f"SELECT count(*) FROM tracks")
+    data = cursor.fetchone()
+
+    cursor.close()
+    conn.close()
+
+    return data[0]
+
 def preprocess_data(data):
     output = []
 
@@ -63,5 +78,3 @@ def preprocess_data(data):
         output.append(TrackInfo(item[1], attr))
 
     return output
-
-

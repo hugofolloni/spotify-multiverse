@@ -1,5 +1,6 @@
 from database import retrieve_songs, add_songs, TrackInfo
 from analysis import apply_pca, find_similarity, get_playlist_info
+from local import print_data
 
 ## Based on a playlist, return a list of TrackInfos (track_id and cosine). The list has `amount` items, the most similar ones, based on cosine.
 def find_songs(playlist: str, amount:int) -> list[TrackInfo]:
@@ -10,6 +11,8 @@ def find_songs(playlist: str, amount:int) -> list[TrackInfo]:
 
     return find_similarity(user_vector, database_infos, amount)
 
-    
-
-    
+if __name__ == "__main__":
+    playlist = input("Playlist: ")
+    amount = int(input("Amount: "))
+    recommendations = find_songs(playlist, amount)
+    print_data(recommendations)
