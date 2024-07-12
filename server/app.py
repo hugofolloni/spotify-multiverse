@@ -26,7 +26,6 @@ def get_songs():
 
     try:
         infos, data = find_songs(playlist, amount)
-        data = [obj.__dict__ for obj in find_songs(playlist, amount)]
         return json.dumps({"code": 0, "infos": {"name": infos.name, "cover": infos.cover}, "tracks": [obj.__dict__ for obj in data]})
     except Exception as error:
         if str(error).find("at least") != -1:
@@ -40,7 +39,7 @@ def fake_songs():
         return json.dumps({"error": "Invalid key", "code": 2})
     
     data = [obj.__dict__ for obj in find_fake(int(request.args.get('amount')), int(request.args.get('offset')), int(request.args.get('limit')))]
-    return json.dumps({"code": 0, "tracks": data})
+    return json.dumps({"code": 0,  "infos": {"name": "Is it really you?"}, "tracks": data})
 
 @app.route("/size", methods=['GET'])
 def get_size():
