@@ -2,12 +2,19 @@ import { useLocation } from 'react-router-dom';
 
 const Header = () => {
 
-    var text = new URLSearchParams(useLocation().search).get("language") === "pt" ? "Sobre" : "About";
+    const location = useLocation()
 
+    var text = new URLSearchParams(location.search).get("language") === "pt" ? "Sobre" : "About";
+
+    const redirect = () => {
+        if(location.pathname !== '/'){
+            window.location.href = "/"
+        }
+    }
 
     return ( 
         <div className="header-wrapper">
-            <h2>multiverse</h2>
+            <h2 style={{cursor: `${location.pathname !== '/' ? "pointer" : "default"}`}} onClick={() => redirect()}>multiverse</h2>
             <div className="about-button">{text}</div>
         </div>
      );

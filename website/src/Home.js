@@ -22,12 +22,12 @@ const Home = () => {
         },
         subtitle: {
             en: [
-                "Create a playlist based on your current music taste.",
-                "Show us a playlist that you like and we'll create one new for you."
+                "Discover songs based on your current music taste.",
+                "Show us a playlist that you like and we'll tell you what to listen."
             ],
             pt: [
-                "Crie uma playlist com base no seu gosto musical atual.",
-                "Mostre-nos uma playlist que você gosta e criaremos uma nova para você."
+                "Descubra músicas com base no seu gosto musical atual.",
+                "Mostre-nos uma playlist que você gosta e te diremos o que ouvir."
             ]
         },
         inputs: {
@@ -61,7 +61,7 @@ const Home = () => {
                     <div className="generate-button-background" />
                 </div>
             </div>
-            <span className='footer'>{ language === "pt" ? "Criado por" : "Created by"} <a href="https://github.com/hugofolloni">@hugofolloni</a></span>
+            <span className='footer'>{ language === "pt" ? "Criado por" : "Created by"} <a target='_blank' rel='noreferrer' href="https://github.com/hugofolloni">@hugofolloni</a></span>
         </div>
      );
 }

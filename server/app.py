@@ -1,5 +1,6 @@
 
 from flask import Flask, request
+from flask_cors import CORS, cross_origin
 from main import find_songs
 from local import find_fake
 from database import get_database_size
@@ -9,8 +10,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
+
 
 @app.route("/analysis", methods=['GET'])
+@cross_origin()
 def get_songs():
     if request.args.get("key") != os.getenv("API_KEY"):
         return json.dumps({"error": "Invalid key", "code": 2})
@@ -34,12 +39,13 @@ def get_songs():
 
 ## To use when the Spotify API is unavailable.
 @app.route("/fake", methods=['GET'])
+@cross_origin()
 def fake_songs():
     if request.args.get("key") != os.getenv("API_KEY"):
         return json.dumps({"error": "Invalid key", "code": 2})
     
     data = [obj.__dict__ for obj in find_fake(int(request.args.get('amount')), int(request.args.get('offset')), int(request.args.get('limit')))]
-    return json.dumps({"code": 0,  "infos": {"name": "Is it really you?"}, "tracks": data})
+    return json.dumps({"code": 0,  "infos": {"name": "Is it really you?", 'cover': 'https://i.pinimg.com/564x/53/4f/a4/534fa4d80a6efe5ced3d03690d39c40b.jpg'}, "tracks": data})
 
 @app.route("/size", methods=['GET'])
 def get_size():

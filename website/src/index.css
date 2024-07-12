@@ -15,6 +15,27 @@
   font-family: "IBM Plex Sans";
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--black);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--green);
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--green-hover);
+}
+
 body {
   width: 100vw;
   min-height: 100vh;
@@ -36,14 +57,13 @@ body {
   font-size: 48px;
   letter-spacing: -4px;
   transition: 0.5s ease all;
-  cursor: default;
 }
 
 .header-wrapper h2:hover{
   color: var(--green-hover);
 }
 
-.about-button {
+.about-button, .return-button {
   padding: 10px;
   background-color: var(--green);
   color: var(--blue);
@@ -52,9 +72,12 @@ body {
   border: 3px solid var(--green);
   transition: 0.3s ease all;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.about-button:hover{
+.about-button:hover, .return-button:hover{
   color: var(--green);
   background-color: rgba(0,0,0,0);
 }
@@ -242,4 +265,164 @@ body {
   text-decoration: none;
   color: #555555;
   font-weight: 700;
+}
+
+.playlist-wrapper{
+  width: 100vw;
+  height: fit-content;
+  padding: 50px calc(50% - 500px);
+}
+
+.cover-wrapper {
+  width: 200px;
+  height: 200px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+.playlist-div {
+  display: flex;
+  flex-direction: column;
+}
+
+.playlist-infos {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 20px 0;
+}
+
+.playlist-title {
+  color: var(--green);
+  margin-left: 25px;
+  text-align: end;
+  font-size: 64px;
+  height: fit-content;
+  margin-bottom: -10px;
+  font-weight: 700;
+  transform: rotate(180deg);
+}
+
+.cover-image {
+  width: 101%;
+  height: 101%;
+  transform: rotate(180deg);
+}
+
+.tracks-wrapper {
+  padding: 50px 1%;
+}
+
+.track-div {
+   width: 100%;
+  height: 152px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+}
+
+.track-div button {
+  margin-left: 50px;
+}
+
+.error-wrapper {
+  display: flex;
+  width: 100%;
+  height: 60vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.error-div {
+  padding: 20px;
+  width: 500px;
+}
+
+.error-div h1 {
+  margin-bottom: 10px;
+  color: var(--green);  
+}
+
+.error-description {
+  margin-bottom: 40px;
+  color: var(--white);
+  padding-left: 20px;
+}
+
+.loading-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes rotate {
+  from {transform: rotate(0); }
+  to { transform: rotate(360deg);}
+}
+
+.loading-headphone-img {
+  width: 50px;
+  height: 50px;
+  animation: rotate 2.5s infinite ease reverse;
+}
+
+.loading-headphone-div {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  animation: rotate 5s infinite ease-in-out;
+  margin-bottom: 20px;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  12%, 20% {
+    transform: translateX(-300px);
+  }
+  32%, 40% {
+    transform: translateX(-600px);
+  }
+  52%, 60% {
+    transform: translateX(-900px);
+  }
+  72%, 80% {
+    transform: translateX(-1200px);
+  }
+  92%, 100% {
+    transform: translateX(-1500px);
+  }
+}
+
+.texts-wrapper {
+  width: 300px;
+  overflow:hidden ;
+}
+
+.texts-div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: fit-content;
+  overflow-y: hidden;
+  animation: slide 20s linear infinite;
+}
+
+.single-text {
+  color: white;
+  width: 300px;
+    text-align: center;
+}
+
+.loading-wrapper span {
+  margin-top: 20px;
+  color: #bbbbbb  ;
 }
