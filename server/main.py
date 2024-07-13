@@ -1,9 +1,8 @@
 from database import retrieve_songs, add_songs, get_database_size, TrackInfo
 from analysis import apply_pca, find_similarity, get_playlist_info
 from local import print_data
-import json
 
-## Based on a playlist, return a list of TrackInfos (track_id and cosine). The list has `amount` items, the most similar ones, based on cosine.
+## Based on a playlist, return a list of TrackInfos (track_id and distance). The list has `amount` items, the most similar ones, based on distance.
 def find_songs(playlist: str, amount:int, adding:bool=False) -> list[TrackInfo]:
     data = get_playlist_info(playlist)
     analysis = data.analysis

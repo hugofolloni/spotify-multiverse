@@ -307,6 +307,11 @@ body {
   width: 101%;
   height: 101%;
   transform: rotate(180deg);
+  transition: 0.3s ease all;
+}
+
+.cover-image:hover{
+  transform: scale(1.05) rotate(180deg);
 }
 
 .tracks-wrapper {

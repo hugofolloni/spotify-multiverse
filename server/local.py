@@ -88,8 +88,8 @@ def print_data(recommendations):
         for artist in song['artists']:
             item_artists.append(artist['name'])
         item_id = recommendations[index].track_id
-        cosine = recommendations[index].cosine
-        print(f'{item_name} - {", ".join(item_artists)} : https://open.spotify.com/track/{item_id} - {cosine}')
+        distance = recommendations[index].distance
+        print(f'{item_name} - {", ".join(item_artists)} : https://open.spotify.com/track/{item_id} - {distance}')
 
 def faking(offset, limit):
     recommendations = find_fake(15, offset, limit)

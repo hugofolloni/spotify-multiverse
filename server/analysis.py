@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
-from sklearn.metrics.pairwise import cosine_similarity
+from sklearn.metrics.pairwise import euclidean_distances
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -27,9 +27,9 @@ class Track:
         self.artists = artists
 
 class Similarity:
-    def __init__(self, track_id, cosine):
+    def __init__(self, track_id, distance):
         self.track_id = track_id
-        self.cosine = cosine
+        self.distance = distance
 
 def connect_to_spotify():
     client_id = os.getenv("SPOTIFY_CLIENT")
@@ -65,11 +65,8 @@ def get_playlist_info(playlist_url):
 
     return Playlist(name, cover, playlist_analysis, tuple(playlist_ids), playlist_songs)
 
-def create_dataframe(array):
-    return pd.DataFrame(array)
-
 def apply_pca(infos):
-    dataframe = create_dataframe(infos).T
+    dataframe = pd.DataFrame(infos).T
     scaler = StandardScaler()
     scaled = scaler.fit_transform(dataframe)
     _PCA = PCA(n_components=1)
@@ -84,9 +81,9 @@ def find_similarity(user, database, amount: int):
     
     for track in database:
         track_vector = np.array(track.attributes)
-        comparitions.append(Similarity(track.id, cosine_similarity([user], [track_vector])[0][0]))
+        comparitions.append(Similarity(track.id, euclidean_distances([user], [track_vector])[0][0]))
 
-    comparitions.sort(key=lambda x: x.cosine, reverse=True)
+    comparitions.sort(key=lambda x: x.distance, reverse=False)
 
     return comparitions[:amount]
 
