@@ -5,3 +5,4 @@ sklearn
 dotenv
 psycopg2
 flask
+flask_cors
