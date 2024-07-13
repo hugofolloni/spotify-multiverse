@@ -109,4 +109,8 @@ def find_song(track_id):
     cursor.close()
     conn.close()
 
-    return DatabaseModel(data)
+    try:
+        model = DatabaseModel(data)
+        return model
+    except:
+        return {"error": "Not Found"}
