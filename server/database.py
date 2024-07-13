@@ -1,12 +1,27 @@
 import psycopg2
 import os
 from dotenv import load_dotenv
+import json
 load_dotenv()
 
 class TrackInfo:
     def __init__(self, id, attributes):
         self.id = id
         self.attributes = attributes
+    
+class DatabaseModel:
+    def __init__ (self, args):
+        self.id = int(args[0])
+        self.track_id = args[1]
+        self.danceability = float(args[2])
+        self.energy = float(args[3])
+        self.loudness = float(args[4])
+        self.speechiness = float(args[5])
+        self.acousticness = float(args[6])
+        self.instrumentalness = float(args[7])
+        self.liveness = float(args[8])
+        self.valence = float(args[9])
+        self.tempo = float(args[10])
 
 def add_songs(infos, songs):
     conn = psycopg2.connect(
@@ -77,3 +92,21 @@ def preprocess_data(data):
         output.append(TrackInfo(item[1], attr))
 
     return output
+
+def find_song(track_id):
+    conn = psycopg2.connect(
+        database = os.getenv("DB_DATABASE"),
+        host = os.getenv("DB_HOST"),
+        user = os.getenv("DB_USER"),
+        password = os.getenv("DB_PASSWORD"),
+        port = os.getenv("DB_PORT")
+    )
+    cursor = conn.cursor()
+
+    cursor.execute(f"SELECT * FROM tracks where track_id = '{track_id}'")
+    data = cursor.fetchone()
+
+    cursor.close()
+    conn.close()
+
+    return DatabaseModel(data)

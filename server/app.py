@@ -3,7 +3,7 @@ from flask import Flask, request
 from flask_cors import CORS, cross_origin
 from main import find_songs
 from local import find_fake
-from database import get_database_size
+from database import get_database_size, find_song
 import json
 import os
 from dotenv import load_dotenv
@@ -53,6 +53,14 @@ def get_size():
         return json.dumps({"error": "Invalid key", "code": 2})
     
     return {"size": get_database_size()}
+
+@app.route("/find", methods=['GET'])
+def find():
+    if request.args.get("key") != os.getenv("API_KEY"):
+        return json.dumps({"error": "Invalid key", "code": 2})
+    
+    track_id = request.args.get("track") 
+    return json.dumps(find_song(track_id), default=lambda o: o.__dict__,  indent=4)
 
 if __name__ == '__main__':
     app.run(debug=True)
