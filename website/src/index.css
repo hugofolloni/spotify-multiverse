@@ -100,7 +100,7 @@ body {
   justify-content: flex-start;
   margin-top: -20px;
   position: relative;
-  z-index: -1;
+  z-index: 0;
 }
 
 .home-title {
@@ -292,7 +292,7 @@ body {
   align-items: flex-end;
   justify-content: flex-start;
   padding: 20px 0;
-  z-index: -1;
+  z-index: 0;
 }
 
 .playlist-title {
@@ -322,7 +322,7 @@ body {
 }
 
 .track-div {
-   width: 100%;
+  width: 100%;
   height: 152px;
   margin-bottom: 20px;
   display: flex;
@@ -331,8 +331,9 @@ body {
   flex-direction: row;
 }
 
-.track-div button {
+.update {
   margin-left: 50px;
+  cursor: pointer;
 }
 
 .error-wrapper {
@@ -441,6 +442,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
+  z-index: 2;
 }
 
 .positioning {
@@ -492,4 +494,100 @@ body {
   text-align: center;
   margin-top: 20px;
   color: #aaaaaa;
+}
+
+@media (max-width: 1000px){
+
+  .home-wrapper {
+    justify-content: flex-start;
+    margin-top: 15vh;
+    height: fit-content;
+  }
+
+  .home-div{
+    width: 90vw;
+  }
+
+  .home-title {
+    font-size: 42px;
+    margin-top: 2px;
+  }
+
+  .title-div {
+    margin: 20px;
+  }
+
+  .home-subtitle {
+    font-size: 16px;
+    margin: 0px 10px;
+  }
+
+  .home-div img {
+    z-index: -1;
+    margin-top: -100px;
+    margin-right: -20px;
+    opacity: 0.5;
+  }
+
+  .input-div {
+    width: 100%;
+    flex-direction: column;
+    margin: 2% 0%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .generate-button, .generate-button-background  {
+    width: 300px;
+    margin-right: calc(50% - 150px);
+    margin-top: 80px;
+  }
+
+  .underline::after, .underline::before {
+    margin-left: calc(15%);
+  }
+
+  .playlist-wrapper {
+    padding: 50px 20px;
+  }
+
+  .playlist-infos {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  .playlist-title {
+    margin-top: 30px;
+  }
+
+  .about-div {
+    width: 80vw;
+  }
+
+  .about-div h1 {
+    font-size: 24px;
+  }
+
+  .about-div span {
+    font-size: 12px;
+  }
+
+  .update {
+    margin-left: 30px;
+  }
+
+
+}
+
+@media (max-width: 400px) {
+  .home-title {
+    font-size: 36px;
+    margin-top: 2px;
+  }
+  
+  .credits {
+    display: none;
+  }
 }

@@ -90,7 +90,7 @@ const Playlist = () => {
                                 {tracks && tracks.map((track, idx) => (
                                     <div className='track-div' key={track.id}>
                                         <iframe style={{border: 'none'}} title={track.track_id} src={`https://open.spotify.com/embed/track/${track.track_id}?utm_source=generator&theme=0`} width="80%" height="100%" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy" />
-                                        <RestartAltIcon fontSize="large" color={end < 50 ? "success" : "disabled"} style={{ marginLeft: '50px', cursor: 'pointer' }} onClick={() => replaceSong(idx)} /> 
+                                        <RestartAltIcon fontSize="large" color={end < 50 ? "success" : "disabled"} className='update' onClick={() => replaceSong(idx)} /> 
                                     </div>
                                 ))}
                             </div>
