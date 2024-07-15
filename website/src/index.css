@@ -260,7 +260,7 @@ body {
   position: absolute;
   bottom: 0;
   margin-bottom: 20px;
-  z-index: -1;
+  z-index: 0;
 }
 
 .footer a {
