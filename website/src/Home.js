@@ -10,8 +10,7 @@ const Home = () => {
     var languageParameter = language === "pt" ? "&language=pt" : "";
     
     const searchSong = () => {
-        const baseUrl = 'http://localhost:3000'
-        const redirectTo = `${baseUrl}/playlist?playlist=${playlist}${languageParameter}`
+        const redirectTo = `/playlist?playlist=${playlist}${languageParameter}`
         window.location.href = redirectTo;
     }
 
