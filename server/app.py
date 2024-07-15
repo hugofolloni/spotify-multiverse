@@ -17,7 +17,7 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 @app.route("/analysis", methods=['GET'])
 @cross_origin()
 def get_songs():
-    if request.args.get("key") != os.environ.get(("API_KEY"):
+    if request.args.get("key") != os.environ.get("API_KEY"):
         return json.dumps({"error": "Invalid key", "code": 2})
     
     playlist = request.args.get('playlist')
@@ -41,7 +41,7 @@ def get_songs():
 @app.route("/fake", methods=['GET'])
 @cross_origin()
 def fake_songs():
-    if request.args.get("key") != os.environ.get(("API_KEY"):
+    if request.args.get("key") != os.environ.get("API_KEY"):
         return json.dumps({"error": "Invalid key", "code": 2})
     
     data = [obj.__dict__ for obj in find_fake(int(request.args.get('amount')), int(request.args.get('offset')), int(request.args.get('limit')))]
@@ -49,14 +49,14 @@ def fake_songs():
 
 @app.route("/size", methods=['GET'])
 def get_size():
-    if request.args.get("key") != os.environ.get(("API_KEY"):
+    if request.args.get("key") != os.environ.get("API_KEY"):
         return json.dumps({"error": "Invalid key", "code": 2})
     
     return {"size": get_database_size()}
 
 @app.route("/find", methods=['GET'])
 def find():
-    if request.args.get("key") != os.environ.get(("API_KEY"):
+    if request.args.get("key") != os.environ.get("API_KEY"):
         return json.dumps({"error": "Invalid key", "code": 2})
     
     track_id = request.args.get("track") 
