@@ -59,7 +59,7 @@ The project employs concepts from linear algebra, such as vector and matrix oper
 - Frontend: JavaScript, React
 - Backend: Python, Flask
 - Database: PostgreSQL
-- Data Analysis: NumPy, Pandas, Scikit-learn
+- Data Analysis: NumPy, Scikit-learn
 - API: Spotify API
 
 ## Disclaimer

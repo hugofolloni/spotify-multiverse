@@ -94,3 +94,6 @@ def print_data(recommendations):
 def faking(offset, limit):
     recommendations = find_fake(15, offset, limit)
     print_data(recommendations)
+
+if __name__ == '__main__':
+    print_data(find_fake(20, 10, 20))

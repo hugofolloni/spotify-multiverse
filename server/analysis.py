@@ -1,6 +1,5 @@
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
-import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
@@ -66,7 +65,7 @@ def get_playlist_info(playlist_url):
     return Playlist(name, cover, playlist_analysis, tuple(playlist_ids), playlist_songs)
 
 def apply_pca(infos):
-    dataframe = pd.DataFrame(infos).T
+    dataframe = np.array(infos).T
     scaler = StandardScaler()
     scaled = scaler.fit_transform(dataframe)
     _PCA = PCA(n_components=1)
