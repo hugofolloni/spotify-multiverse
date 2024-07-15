@@ -25,8 +25,8 @@ const Playlist = () => {
 
     useEffect( () => {
         console.log(playlist)
-        fetch(`http://127.0.0.1:5000/analysis?key=aHVnb3N0b3Nv&amount=50&playlist=${playlist}`)
-        // fetch(`http://127.0.0.1:5000/fake?key=aHVnb3N0b3Nv&offset=10&limit=15&amount=50&`)
+        fetch(`https://slippery-aeriel-hugofolloni-2bf1f196.koyeb.app/analysis?key=aHVnb3N0b3Nv&amount=50&playlist=${playlist}`)
+        // fetch(`https://slippery-aeriel-hugofolloni-2bf1f196.koyeb.app/fake?key=aHVnb3N0b3Nv&offset=10&limit=15&amount=50&`)
         .then(res => res.json())
         .then(data => {
             setData(data)
