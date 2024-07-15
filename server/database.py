@@ -24,11 +24,11 @@ class DatabaseModel:
 
 def add_songs(infos, songs):
     conn = psycopg2.connect(
-        database = os.getenv("DB_DATABASE"),
-        host = os.getenv("DB_HOST"),
-        user = os.getenv("DB_USER"),
-        password = os.getenv("DB_PASSWORD"),
-        port = os.getenv("DB_PORT")
+        database = os.environ.get(("DB_DATABASE"),
+        host = os.environ.get(("DB_HOST"),
+        user = os.environ.get(("DB_USER"),
+        password = os.environ.get(("DB_PASSWORD"),
+        port = os.environ.get(("DB_PORT")
     )
     cursor = conn.cursor()
     
@@ -44,11 +44,11 @@ def add_songs(infos, songs):
 
 def retrieve_songs(filters = "", quantity = "", fake=False):
     conn = psycopg2.connect(
-        database = os.getenv("DB_DATABASE"),
-        host = os.getenv("DB_HOST"),
-        user = os.getenv("DB_USER"),
-        password = os.getenv("DB_PASSWORD"),
-        port = os.getenv("DB_PORT")
+        database = os.environ.get(("DB_DATABASE"),
+        host = os.environ.get(("DB_HOST"),
+        user = os.environ.get(("DB_USER"),
+        password = os.environ.get(("DB_PASSWORD"),
+        port = os.environ.get(("DB_PORT")
     )
     cursor = conn.cursor()
 
@@ -65,11 +65,11 @@ def retrieve_songs(filters = "", quantity = "", fake=False):
 
 def get_database_size():
     conn = psycopg2.connect(
-        database = os.getenv("DB_DATABASE"),
-        host = os.getenv("DB_HOST"),
-        user = os.getenv("DB_USER"),
-        password = os.getenv("DB_PASSWORD"),
-        port = os.getenv("DB_PORT")
+        database = os.environ.get(("DB_DATABASE"),
+        host = os.environ.get(("DB_HOST"),
+        user = os.environ.get(("DB_USER"),
+        password = os.environ.get(("DB_PASSWORD"),
+        port = os.environ.get(("DB_PORT")
     )
     cursor = conn.cursor()
 
@@ -94,11 +94,11 @@ def preprocess_data(data):
 
 def find_song(track_id):
     conn = psycopg2.connect(
-        database = os.getenv("DB_DATABASE"),
-        host = os.getenv("DB_HOST"),
-        user = os.getenv("DB_USER"),
-        password = os.getenv("DB_PASSWORD"),
-        port = os.getenv("DB_PORT")
+        database = os.environ.get(("DB_DATABASE"),
+        host = os.environ.get(("DB_HOST"),
+        user = os.environ.get(("DB_USER"),
+        password = os.environ.get(("DB_PASSWORD"),
+        port = os.environ.get(("DB_PORT")
     )
     cursor = conn.cursor()
 

@@ -31,8 +31,8 @@ class Similarity:
         self.distance = distance
 
 def connect_to_spotify():
-    client_id = os.getenv("SPOTIFY_CLIENT")
-    client_secret = os.getenv("SPOTIFY_SECRET")
+    client_id = os.environ.get(("SPOTIFY_CLIENT")
+    client_secret = os.environ.get(("SPOTIFY_SECRET")
 
     return spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id=client_id, client_secret=client_secret))
 
