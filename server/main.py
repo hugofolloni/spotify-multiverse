@@ -10,7 +10,7 @@ def find_songs(playlist: str, amount:int, adding:bool=False) -> list[TrackInfo]:
     songs = data.songs
 
     database = retrieve_songs(filters=f"WHERE track_id NOT IN {ids}")
-    if adding or get_database_size() < 4000:
+    if adding or get_database_size() < 2000:
         add_songs(analysis, songs) ## Add playlist's songs to our database (slows down the process, but refines it)
     user_vector = apply_pca(analysis)
 
