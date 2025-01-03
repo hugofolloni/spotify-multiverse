@@ -2,6 +2,8 @@
 
 **spotify-multiverse** is a full-stack application that helps users discover new songs based on a playlist they already love. Through mathematical analysis, the project extracts the essential elements of the user's favorite songs, enabling the search for other tracks that will also be appealing.
 
+[Important!](#workaround)
+
 ## About 📝
 
 This app was developed as a Final Project in Scientific Computing and Data Analysis by Hugo Folloni. The motivation behind the project stems from a personal love for music and the desire to find new songs that match the vibe of existing favorite playlists. The application leverages the Spotify API to analyze and recommend music based on user preferences.
@@ -61,6 +63,24 @@ The project employs concepts from linear algebra, such as vector and matrix oper
 - Database: PostgreSQL
 - Data Analysis: NumPy, Scikit-learn
 - API: Spotify API
+
+## Workaround 
+
+Due to the deprecation of Spotify's `audio-features` endpoint, the recommendation process of **spotify-multiverse** has been adjusted. Instead of retrieving audio features directly from the Spotify API, the application now uses a different approach:
+
+1. **Extract Artists from Playlist:**  
+   Given the user's playlist, the application identifies all unique artists featured in the playlist.
+
+2. **Query Local Database:**  
+   Using a pre-built database of 2500 songs, the application retrieves songs by the same artists found in the user's playlist. These songs serve as a proxy for analyzing the musical characteristics of the user's preferences.
+
+3. **Analyze Local Audio Features:**  
+   The application then uses the audio features of these locally stored songs (e.g., danceability, energy, loudness) to represent the user's musical taste.
+
+4. **Recommendation Process:**  
+   As before, Principal Component Analysis (PCA) is applied to extract the essence of the user's preferences, and Euclidean distance is used to recommend similar tracks from the database.
+
+This workaround ensures the project remains functional and continues to deliver personalized recommendations despite changes in the Spotify API. However, recommendations are now limited to songs and artists available in the local database, which may affect the diversity of results.
 
 ## Disclaimer
 

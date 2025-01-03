@@ -113,3 +113,22 @@ def find_song(track_id):
         return model
     except:
         return {"error": "Not Found"}
+    
+def get_database_ids(filters = "", quantity = ""):
+    conn = psycopg2.connect(
+        database = os.environ.get("DB_DATABASE"),
+        host = os.environ.get("DB_HOST"),
+        user = os.environ.get("DB_USER"),
+        password = os.environ.get("DB_PASSWORD"),
+        port = os.environ.get("DB_PORT")
+    )
+    cursor = conn.cursor()
+
+    cursor.execute(f"SELECT * FROM tracks {filters} {quantity}")
+    data = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+
+    return data 
+    
