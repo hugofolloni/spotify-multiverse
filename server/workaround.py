@@ -73,10 +73,7 @@ def print_songs(playlist_songs):
         print(item.name, '-', item.artists, '-', item.id)
 
 def generate_filter(artists):
-    query_filter = ''
-    for item in artists:
-        query_filter += f"lower('{item}'), "
-    return query_filter[:-2]
+    return f"lower('{artists[0]}')"
 
 def find_songs_by_same_artist(artists):
     conn = psycopg2.connect(
@@ -126,7 +123,6 @@ def find_similar_songs(playlist_url):
                 if artist['name'] in playlist_artists:
                     already_in_list = True
                 else:
-                    print(artist['name'], playlist_artists)
                     item_artists.append(artist['name'])
                     playlist_artists.append(artist['name'])
             playlist_songs.append(Track(item_name, item_artists, item_id))
@@ -134,9 +130,7 @@ def find_similar_songs(playlist_url):
             if already_in_list:
                 continue
 
-            print('Trying', item_name)
             same_artist_songs = find_songs_by_same_artist(item_artists)
-            print('Found', len(same_artist_songs), 'songs')
             for song in same_artist_songs:
                 playlist_analysis.append(song)
         except: 
