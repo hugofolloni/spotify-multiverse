@@ -135,6 +135,8 @@ def find_similar_songs(playlist_url):
                 playlist_analysis.append(song)
         except: 
             pass
+    if len(playlist_analysis) == 0:
+        playlist_analysis.append([0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5])
 
     return Playlist(name, cover, playlist_analysis, tuple(playlist_ids), playlist_songs)
 
