@@ -26,7 +26,7 @@ class Similarity:
         self.track_id = track_id
         self.distance = distance
 
-def get_database_ids(filters = "", quantity = ""):
+def get_database_ids():
     conn = psycopg2.connect(
         database = "brkanprod74pdkfy9yvk",
         host = "brkanprod74pdkfy9yvk-postgresql.services.clever-cloud.com",
@@ -36,7 +36,7 @@ def get_database_ids(filters = "", quantity = ""):
     )
     cursor = conn.cursor()
 
-    cursor.execute(f"SELECT track_id FROM tracks {filters} {quantity}")
+    cursor.execute(f"select track_id from tracks left outer join infos on tracks.track_id = infos.fk_track where fk_track is null") # After a bug while adding songs' infos to database, i had this approach
     data = cursor.fetchall()
 
     cursor.close()
@@ -60,12 +60,12 @@ def find_infos_about_songs(ids, start, end):
 
     playlist_songs = []
 
-    if len(ids) > 50:
-        for item in sp.tracks(ids[start:end])['tracks']:
-            item_id = item['id']
-            item_name = item['name']
-            item_artists = item['artists'][0]['name']
-            playlist_songs.append(Track(item_name, item_artists, item_id))
+    # if len(ids) > 50:
+    for item in sp.tracks(ids[start:end])['tracks']:
+        item_id = item['id']
+        item_name = item['name']
+        item_artists = item['artists'][0]['name']
+        playlist_songs.append(Track(item_name, item_artists, item_id))
     return playlist_songs
 
 def print_songs(playlist_songs):
@@ -151,11 +151,12 @@ def add_info_to_database(infos):
     )
     cursor = conn.cursor()
 
-    
     for item in infos:
         try:
+            name = item.name.replace("'", "''")
+            artist = item.artists.replace("'", "''")
             print(f'Adicionou {item.name}')
-            cursor.execute(f"INSERT INTO infos(fk_track, title, main_artist) values ('{item.id}', '{item.name}', '{item.artists}')", )
+            cursor.execute(f"INSERT INTO infos(fk_track, title, main_artist) values ('{item.id}', '{name}', '{artist}')", )
             conn.commit()
         except Exception as error:
             print(error)
@@ -165,4 +166,4 @@ def add_info_to_database(infos):
     conn.close()
 
 if __name__ == '__main__':
-    find_songs_by_same_artist(['Bring me the Horizon','Avenged Sevenfold'])
+    add_info_to_database(find_infos_about_songs(get_database_ids(), 0, 50))
